@@ -1,0 +1,159 @@
+<?php 
+include('convertToBangla.php');
+session_start();
+require_once 'templates/header.php';
+if (isset($_SESSION['empid']))
+{
+    $EntryUserId = $_SESSION['empid'];
+    $brCode = $_SESSION['brCode'];
+
+}
+else
+{
+    header("Location:login.php");
+    exit;
+}
+?>
+<style>
+.bgh{
+	background-image: url('img/bgimg.jpg');
+	background-repeat:no-repeat;
+	background-position: right;
+	height:100%; /* you can change that height to 100%, please get sure youre Header is ready */
+	background-size:cover;
+}
+.hdn{
+    font-size: 30pt;
+    font-weight: 700;
+    letter-spacing: -1px;
+    text-decoration: underline;
+}
+.headingList
+{
+	font-size:25px;
+}
+</style>
+	<div class="content">
+    <div class="container">
+
+     		<div class="row">
+				<?php /* require_once 'templates/message.php'; */ 
+//$msg='Update work in progress...Please Submit weekly report after 2PM..';
+
+//$msg='30-06-2019 তারিখের Daily MIS এর তথ্য 01-07-2019 তারিখের মধ্যে এন্ট্রি দেয়া ও ভেরিফিকেশন সম্পন্ন করা যাবে। ';
+				if(isset ($_SESSION['offCode']))
+				{
+					$offCode=$_SESSION['offCode'];
+					$OifficeLevel = $_SESSION['OifficeLevel'];
+					$type = $_SESSION['type'];
+					$BrCode=$_SESSION['offCode'];
+					$uid=$_SESSION['uid'];					
+				}
+				
+				?>
+				
+				<div class="col-sm-2">
+				
+				</div>
+				
+	     		<div class="col-sm-10">
+				<h2 class="text-center"><font color="blue">Rajshahi Krishi Unnayan Bank</font></h2>
+				
+				<?php 
+			$officeCode=$_SESSION['offCode'];
+			echo'<center><h2><font color="green">'.$_SESSION['office'].' ('.e2b($officeCode).')</font></h2></center>';			
+
+
+//echo'<marquee><span style="color:red; font-size:20px;">'.$msg."</span></marquee>";			
+if ($OifficeLevel==1){	// Branch
+						if ($type==1){  //maker
+							echo'<a href="individual.php" class="list-group-item list-group-item-success headingList" >1. CIB Enquiry Form</a>';
+						//	echo'<a href="company.php" class="list-group-item list-group-item-deafult headingList" >2. CIB Enquiry form for Company</a>';
+							echo'<a href="editInquiry.php" class="list-group-item list-group-item-deafult headingList" >2. Edit CIB Inquiry </a>';
+							echo'<a href="statusReport.php" class="list-group-item list-group-item-success headingList" >3. Search CIB Inquiry Reports by Tracking No</a>';
+							echo'<a href="statusReportDate.php" class="list-group-item list-group-item-default headingList" >4. Search CIB Inquiry Reports by Date</a>';
+							
+						}
+						else if ($type==2) //checker
+						{
+							
+							echo "<br><br><a  href='verifyReport.php?branchCode=$brCode'".' class="list-group-item list-group-item-success headingList" > 1. Verify CIB Inquiry Report</a>';
+							echo'<a href="statusReport.php" class="list-group-item list-group-item-default headingList" >2. Search CIB Inquiry Reports</a>';
+							echo'<a href="statusReportDate.php" class="list-group-item list-group-item-default headingList" >3. Search CIB Inquiry Reports by Date</a>';
+
+								//echo  "<p style='color:green;text-align: center;font-size: 45px;font-family:serif;'>"."<br>"."Reset Password Successfully"."</p>";
+							//echo'<a href="verifyReport.php?branchCode=$brCode > class="list-group-item list-group-item-action list-group-item-success headingList"1. Verify CIB Report</a>';
+							//echo '<a href="verifyReport.php?branchCode=$brCode" class="list-group-item list-group-item-action list-group-item-action headingList">2. View Transaction Report</a>';
+							//echo '<a href="ReportBrDetailDatewise.php" class="list-group-item list-group-item-action list-group-item-success headingList">3. View Datewise Detail Transaction Report</a>';
+						    //echo '<a href="brpd_report_Branch.php" class="list-group-item list-group-item-action list-group-item-action headingList">4. BRPD Circular Wise Report</a>';
+															
+						}
+						else if($type==3) //supervisor
+						{
+							//echo'<a href="dailyTransactionSupervisor.php" class="list-group-item list-group-item-action list-group-item-success headingList">1. Supervisor Transaction Entry Form</a>';
+							//echo '<a href="report_serprvisor_peroframnce.php" class="list-group-item list-group-item-action list-group-item-action headingList">2. View Weekly Performance Report</a>';
+							header("Location:sindex.php");
+							exit;
+							
+						}
+					}
+					elseif($OifficeLevel==2){	//Zone
+						echo '<left>  <br><br><br>';
+					    echo "<a  href='verifyReportZM.php?ZoneCode=$brCode' class='list-group-item list-group-item-success headingList'> 1. Verify CIB Inquiry Report</a>";
+						echo'<a href="statusReport.php" class="list-group-item list-group-item-default headingList" >2. Search CIB Inquiry Reports</a></left>';
+						echo'<a href="statusReportDate.php" class="list-group-item list-group-item-success headingList" >3. Search CIB Inquiry Reports by Date</a>';
+
+						//echo'<a href="BrWiseReportZone.php" class="list-group-item list-group-item-action list-group-item-success headingList">3. View Transaction Report (Branch Wise)</a>';
+						//echo'<a href="ZoneReportBrDetailDatewise.php" class="list-group-item list-group-item-action list-group-item-action headingList">4. View Branch Detail Transaction Report (Date Wise)</a>';
+						//echo'<a href="reportszn.php" class="list-group-item list-group-item-action list-group-item-success headingList">5. View Transaction Report (Zone Wise)</a>';					
+						//echo'<a href="brpd_report_Zone.php" class="list-group-item list-group-item-action list-group-item-action headingList">6. BRPD Circular Wise Report</a>';
+						
+						
+					}elseif($OifficeLevel==3){	//ZAO
+						echo'<a href="dasboard.php" class="list-group-item list-group-item-action headingList">1. D A S H B O A R D</a>';
+						echo'<a href="reports.php" class="list-group-item list-group-item-action list-group-item-success headingList">2. View Transaction Report (Branch Wise)</a>';
+						echo'<a href="divreportszn.php" class="list-group-item list-group-item-action list-group-item-secondary headingList">3. View Transaction Report (Zone Wise)</a>';					
+						
+					
+					}elseif($OifficeLevel==4){	//DIVISION
+						echo'<a href="divdasboard.php" class="list-group-item list-group-item-action headingList">1. D A S H B O A R D</a>';
+						//echo'<a href="verifyZone.php" class="list-group-item list-group-item-action list-group-item-secondary">5. Verify Report from Zone</a>';
+						echo'<a href="reports.php" class="list-group-item list-group-item-action list-group-item-success headingList">2. View Transaction Report (Branch Wise)</a>';
+						echo'<a href="divreportszn.php" class="list-group-item list-group-item-action list-group-item-secondary headingList">3. Transaction Report (Zone Wise)</a>';					
+						echo'<a href="div-reportsdiv.php" class="list-group-item list-group-item-action list-group-item-success headingList">4. View Transaction Report (Division wise)</a>';					
+						
+					
+					}elseif($OifficeLevel==5){	//DAO
+						echo'<a href="dasboard.php" class="list-group-item list-group-item-action headingList">1. D A S H B O A R D</a>';
+						//echo'<a href="verifyZone.php" class="list-group-item list-group-item-action list-group-item-secondary">5. Verify Report from Zone</a>';
+						echo'<a href="reports.php" class="list-group-item list-group-item-action list-group-item-success headingList">2. View Transaction Report (Branch Wise)</a>';
+						echo'<a href="divreportszn.php" class="list-group-item list-group-item-action list-group-item-secondary headingList">3. Transaction Report (Zone Wise)</a>';					
+						
+					
+					}elseif(($OifficeLevel==6) && (strpos($EntryUserId, '9905'))){	//RAKUB, HO
+						echo'<a href="dashboard.php" class="list-group-item list-group-item-success headingList">1. CIB Inquiry Reports</a>';
+						echo'<a href="statusReport.php" class="list-group-item list-group-item-default headingList" >2. Search CIB Inquiry Reports</a></left>';
+						echo'<a href="statusReportDate.php" class="list-group-item list-group-item-success headingList" >3. Search CIB Inquiry Reports by Date</a>';
+
+						
+					}
+					elseif($OifficeLevel==7){	//SECP
+						
+						header("Location:../id/index.php");
+		                exit;
+						}						
+					?>
+
+				  </div>
+				
+	     		
+     		</div>
+	</div> 
+	</div> 
+<?php require_once 'templates/footer.php';?>
+
+
+
+
+
+

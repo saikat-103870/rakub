@@ -1,0 +1,122 @@
+<?php
+ob_start();
+session_start();
+include ('templates\header.php');
+include ('config.php');
+ini_set('display_errors', 'off');
+if(isset($_GET['gtrNo']))
+{
+	$trNo=$_GET['gtrNo'];
+	
+	//echo '<br><br><br><br><br><br><br><br><br><br>loanfddfdsf type '.$trNo;
+
+	$exist=1;
+	
+	$sqlload="SELECT i.*,c.* from inquiry i INNER JOIN individual c
+	on i.TrackingNo=c.TrackingNo where i.TrackingNo=$trNo";
+	
+	$res = mysqli_query($conn, $sqlload);
+
+	if (mysqli_affected_rows($conn)>0)
+	{
+     	$row = mysqli_fetch_assoc($res);
+		
+		$LoanType = $row['loanType'];
+		$status = $row['status'];
+		$indiviCompnyInfo = $row['indiviCompnyInfo'];
+		$FISubCode = $row['FISubCode'];
+		$FinTypeID = $row['FinTypeID'];
+		$TotalReqAmt = $row['TotalReqAmt'];
+		$InstallmentNo =$row['InstallmentNo'];
+		$InstallmentAmt = $row['InstallmentAmt'];
+		$PerodicityPayment = $row['PerodicityPayment'];
+		$Role = $row['Role'];
+		$Title = $row['Title'];
+		$Name = $row['Name'];
+		$FatherTitle = $row['FatherTitle'];
+		$FatherName = $row['FatherName'];
+		$MotherTitle = $row['MotherTitle'];
+		$MotherName = $row['MotherName'];
+		$SpouseTitle = $row['SpouseTitle'];
+		$SpouseName = $row['SpouseName'];
+		$NID = $row['NID'];
+		$Etin = $row['Etin'];
+		$TelephoneNumber = $row['TelephoneNumber'];
+		$BirthDistrict = $row['BirthDistrict'];
+		$BirthCountry = $row['BirthCountry'];
+		$SecType = $row['SecType'];
+		$SecCode = $row['SecCode'];
+		$Gender = $row['Gender'];
+		$PerStreet = $row['PerStreet'];
+		$PerPostal = $row['PerPostal'];
+		$PerDistrict = $row['PerDistrict'];
+		$PerCountry = $row['PerCountry'];
+		$PreStreet = $row['PreStreet'];
+		$PrePostal = $row['PrePostal'];
+		$PreDistrict = $row['PreDistrict'];
+		$PreCountry = $row['PreCountry'];
+		$IDType = $row['IDType'];
+		$IDNumber = $row['IDNumber'];
+		$IDIssueDate = $row['IDIssueDate'];
+		$IDIssueCountry = $row['IDIssueCountry'];
+		$BirthDate = $row['BirthDate'];
+		$fileName = $row['UploadNID'];
+		$UploadMoneyReceipt = $row['UploadMoneyReceipt'];
+		$UploadPromiseLetter = $row['UploadPromiseLetter'];
+		$UploadOtherDocs = $row['UploadOtherDocs'];
+	
+	}	
+}
+
+
+else
+{
+$exist=0;
+if (isset($_SESSION['empid']))
+{
+    $EntryUserId = $_SESSION['empid'];
+    $brCode = $_SESSION['brCode'];
+
+}
+else
+{
+    header("Location:login.php");
+    exit;
+}
+			
+}
+
+
+if (isset($_POST['SubmitBM']))
+{
+	$trN=$_POST['trNo'];
+	$trNo='';
+	//echo '<br><br><br><br><br><br><br><br>dfdfdf'.$trNo; exit;
+	$sql = "UPDATE `inquiry` SET  `status`=0 where `TrackingNo`='$trN'";
+
+if (mysqli_multi_query($conn, $sql))
+        {
+			echo '<center>';
+			echo '<h2><br><br><br><br><span style="color: green;">Successfully Send to Branch Manager.</span></h2>';
+			echo "<a class='btn btn-default btn-lg blue' href='individual.php?gtrNo=$trNo'><span class='glyphicon glyphicon-edit'></span> Edit</a><br><br>";
+			echo '</center>';
+			echo '<center>';
+			echo "<a class='btn btn-default btn-lg blue' href='generate_pdf/genPdfIndividual.php?gtrNo=$trNo'><span class='glyphicon glyphicon-edit'></span> Generate PDF</a><br><br>";
+			echo '</center>';
+			exit;
+        }
+	else
+		{
+			echo "Error: " . mysqli_error($conn);
+		}
+
+
+}
+
+
+
+?>
+
+<?php
+include ('templates\footer.php')
+?>

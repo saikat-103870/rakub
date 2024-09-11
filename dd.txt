@@ -1,0 +1,20 @@
+$(function(){
+	
+$("#save").click(function () 
+{
+
+	var NID=$("#NID").val();
+	var NID1=$("#NID").val();
+	var uNID=$("#UploadNID").val();
+		
+	if((NID.length>0)&&(uNID.length<1)){
+			alert("Please Upload NID");
+			return false;
+			}
+
+
+
+});
+});	
+	
+</script>
